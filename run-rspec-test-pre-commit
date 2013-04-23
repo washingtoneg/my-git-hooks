@@ -1,0 +1,24 @@
+#!/bin/bash
+
+GREEN='\e[0;32m'
+RED='\e[0;31m' 
+ENDCOLOR='\e[0m'
+
+# Stash unstaged changes before running tests
+git stash -q --keep-index
+
+# Run tests
+RUN_TESTS_CMD='rspec spec/no_rails'
+NUM_FAILS=`${RUN_TESTS_CMD} --format=progress | grep "example"| grep "fail"| awk {'print $3'}`
+
+# Unstash
+git stash pop -q
+
+if [ $NUM_FAILS -ne 0 ] 
+then
+	echo -e "${RED}Can't commit! You've broken $NUM_FAILS tests!!!${ENDCOLOR}"
+	exit 1
+else
+	echo -e "${GREEN}All tests passed. You didn't broke anything. Congrats!\n${ENDCOLOR}"
+	exit 0
+fi
