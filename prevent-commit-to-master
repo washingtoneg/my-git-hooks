@@ -1,12 +1,11 @@
 #!/bin/bash
 
-BRANCH='git branch'
+BRANCH=`git rev-parse --abbrev-ref HEAD`
 
-if [ $NUM_FAILS -ne 0 ] 
+if [ $BRANCH == master ] 
 then
-	echo -e "${RED}Can't commit! You've broken $NUM_FAILS tests!!!${ENDCOLOR}"
+	echo -e "Non shall commit to master!"
 	exit 1
 else
-	echo -e "${GREEN}All tests passed. You didn't broke anything. Congrats!\n${ENDCOLOR}"
 	exit 0
 fi

@@ -1,9 +1,5 @@
 #!/bin/bash
 
-GREEN='\e[0;32m'
-RED='\e[0;31m' 
-ENDCOLOR='\e[0m'
-
 # Stash unstaged changes before running tests
 git stash -q --keep-index
 
@@ -16,9 +12,9 @@ git stash pop -q
 
 if [ $NUM_FAILS -ne 0 ] 
 then
-	echo -e "${RED}Can't commit! You've broken $NUM_FAILS tests!!!${ENDCOLOR}"
+	echo -e "Can't commit! You've broken $NUM_FAILS tests!!!"
 	exit 1
 else
-	echo -e "${GREEN}All tests passed. You didn't broke anything. Congrats!\n${ENDCOLOR}"
+	echo -e "All tests passed. You didn't broke anything. Congrats!\n"
 	exit 0
 fi
