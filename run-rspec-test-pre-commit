@@ -4,7 +4,7 @@
 git stash -q --keep-index
 
 # Run tests
-RUN_TESTS_CMD='rspec spec/no_rails'
+RUN_TESTS_CMD='rspec spec/'
 NUM_FAILS=`${RUN_TESTS_CMD} --format=progress | grep "example"| grep "fail"| awk {'print $3'}`
 
 # Unstash
